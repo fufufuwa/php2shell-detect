@@ -1,0 +1,38 @@
+services:
+  # ---- leak-oracle differential pair (PHP 8.5.x) ------------------------
+  vuln-85:
+    image: php:8.5.11-apache
+    ports:
+      - "127.0.0.1:28132:80"
+    volumes:
+      - ./conf/leak-php.ini:/usr/local/etc/php/conf.d/zz-p2sd.ini:ro
+      - ./conf/leak-mpm.conf:/etc/apache2/conf-enabled/zz-p2sd.conf:ro
+      - ./html:/var/www/html:ro
+
+  patch-85:
+    image: php:8.5.12-apache
+    ports:
+      - "127.0.0.1:28133:80"
+    volumes:
+      - ./conf/leak-php.ini:/usr/local/etc/php/conf.d/zz-p2sd.ini:ro
+      - ./conf/leak-mpm.conf:/etc/apache2/conf-enabled/zz-p2sd.conf:ro
+      - ./html:/var/www/html:ro
+
+  # ---- stock pair (PHP 8.4.x, version-matrix tier) ----------------------
+  vuln-84:
+    image: php:8.4.26-apache
+    ports:
+      - "127.0.0.1:28081:80"
+    volumes:
+      - ./conf/stock-php.ini:/usr/local/etc/php/conf.d/zz-p2sd.ini:ro
+      - ./conf/single-child.conf:/etc/apache2/conf-enabled/zz-p2sd.conf:ro
+      - ./html:/var/www/html:ro
+
+  patch-84:
+    image: php:8.4.27-apache
+    ports:
+      - "127.0.0.1:28082:80"
+    volumes:
+      - ./conf/stock-php.ini:/usr/local/etc/php/conf.d/zz-p2sd.ini:ro
+      - ./conf/single-child.conf:/etc/apache2/conf-enabled/zz-p2sd.conf:ro
+      - ./html:/var/www/html:ro

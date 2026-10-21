@@ -1,0 +1,29 @@
+NOTICE — php2shell-detect
+
+This project independently develops:
+  - php2shell.py (detection scanner, tier architecture, verdict logic)
+  - the lab configuration, differential harness, and measured matrices
+
+It builds on publicly disclosed research for CVE-2026-109618 /
+CVE-2026-109619:
+
+  * The stale-PS(id) arm/read leak field layouts used by the T2 oracle were
+    first demonstrated by:
+      unlimit0118/CVE-2026-109619-php2shell-poc
+      https://github.com/unlimit0118/CVE-2026-109619-php2shell-poc
+    (functional parameters — field counts, sizes, offsets — re-implemented
+    here; no upstream code is redistributed in this repository)
+
+  * The P1-P5 primitive documentation, official patch-diff analysis, ASAN
+    convictions, and the 18-shot negative matrix referenced in our
+    limitations are from:
+      WoYinDao/CVE-2026-109618-CVSS-9.2-Critical
+      https://github.com/WoYinDao/CVE-2026-109618-CVSS-9.2-Critical
+
+  * The scanner-precedent and the patched-build false-positive behavior we
+    correct were observed in:
+      pentestershell/php2shellbt
+      https://github.com/pentestershell/php2shellbt
+
+All trademarks and upstream project names belong to their respective owners.
+This project is not affiliated with the PHP Group or any upstream repository.
